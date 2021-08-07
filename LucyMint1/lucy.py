@@ -2,6 +2,7 @@
 import speech_recognition as sr
 # import pyttsx3
 import spotipy
+import pyjokes
 from spotipy.oauth2 import SpotifyOAuth
 
 from config import *
@@ -22,6 +23,9 @@ def parseQuestion(string):
         #Gimmics
         if 'hello' in userIn:
             tts("Hello "+your_name)
+
+        if 'tell' in userIn and 'joke' in userIn:
+            tts(pyjokes.get_joke())
 
         # SPOTIFY CONTROL
         # Pause
