@@ -4,13 +4,17 @@ import speech_recognition as sr
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 from config import *
+from speak import speakText
 
 sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=SP_CI, client_secret=SP_CS, redirect_uri=SP_URL, scope=SCOPE))
 
 def tts(string):
     i = 0
+    speakText(string)
 
-while True:
+activated = True
+
+while activated:
     try:
         with sr.Microphone() as source:
             # print("<Lucy> I'm Listening...")
@@ -24,6 +28,8 @@ while True:
 
             # SPOTIFY CONTROL
             # Pause
+            elif userIn == 'exit':
+                activated = False
             elif userIn == 'pause' or userIn == 'stop':
                 sp.pause_playback()
             # Resume
