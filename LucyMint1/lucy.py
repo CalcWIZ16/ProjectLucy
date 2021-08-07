@@ -2,9 +2,8 @@ import requests
 import speech_recognition as sr
 # import pyttsx3
 import spotipy
-from spotipy.oauth2 import SpotifyOAuth
-from config import *
-from speak import speakText
+ 
+from speak import *
 
 sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=SP_CI, client_secret=SP_CS, redirect_uri=SP_URL, scope=SCOPE))
 
@@ -48,8 +47,8 @@ while activated:
                 userArray = userIn.split(" ")
                 if len(userArray) > 1:
                     song = userIn.replace('play ', '')
-                    tts("I'm on it")
-                    print('On it!')
+                    # tts("I'm on it")
+                    # print('On it!')
 
                     response = sp.search(q=song, type="track")
 
@@ -66,6 +65,6 @@ while activated:
                     sp.start_playback()
 
     except:
-        tts("Sorry, I ran into a problem")
+        speakError()
         print("<Lucy> Sorry, I ran into a problem")
         pass
