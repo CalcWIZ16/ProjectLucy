@@ -4,24 +4,35 @@
 
 import speech_recognition as sr
 import lucy as lucy
+from config import *
 
 activated = True
 
 while activated:
-    userIn = input("Click enter to enable: ")
-    # obtain audio from the microphone
-    r = sr.Recognizer()
-    with sr.Microphone() as source:
-        print("Say something!")
-        audio = r.listen(source)
-    
-    try:
-        dictatedText = r.recognize_google(audio)
-    except:
-        lucy.speakError()
-        print("Error")
+    if speech_mode == 'true':
+        userIn = input("Click enter to enable: ")
+        # obtain audio from the microphone
+        r = sr.Recognizer()
+        with sr.Microphone() as source:
+            print("Say something!")
+            audio = r.listen(source)
+        
+        try:
+            text = r.recognize_google(audio)
+        except:
+            lucy.speakError()
+            print("Error")
 
-    if dictatedText.lower() == 'turn off':
-        activated = False
+        if text.lower() == 'turn off':
+            activated = False
+        else:
+            lucy.parseQuestion(text)
     else:
-        lucy.parseQuestion(dictatedText)
+        userIn = input("Click enter to enable: ")
+        print("Say something!")
+        text = input()
+
+        if text.lower() == 'turn off':
+            activated = False
+        else:
+            lucy.parseQuestion(text)
