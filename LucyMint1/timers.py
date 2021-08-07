@@ -36,7 +36,7 @@ class Timer():
         return self.timeAmount + " " + self.timeUnit
 
 def parseQuestion(string):
-    if 'create' in string:
+    if 'create' in string or 'start' in string:
         sentanceArray = re.split(" |-", string)
         unitOfTime = ""
         amountOfTime = ""
@@ -103,11 +103,11 @@ def parseQuestion(string):
                         timeUnits.append(str(minuteCount) + " minute")
                     else:
                         timeUnits.append(str(minuteCount) + " minutes")
-                secondCount = timeRemainingInt % 60
-                if secondCount == 1:
-                    timeUnits.append(str(secondCount) + " second")
-                else:
-                    timeUnits.append(str(secondCount) + " seconds")
+                    secondCount = timeRemainingInt % 60
+                    if secondCount == 1:
+                        timeUnits.append(str(secondCount) + " second")
+                    else:
+                        timeUnits.append(str(secondCount) + " seconds")
                 # timeUnits = (value for value in timeUnits if value != "")
                 if "" in timeUnits:
                     timeUnits.remove("")
@@ -129,7 +129,7 @@ def parseQuestion(string):
                 timerToRemove = getUserInput()
                 try:
                     timers.remove(timersToRemove[int(timerToRemove)])
-                    speakText("Removed the timer")
+                    speakText("Removed")
                     waiting = False
                 except:
                     speakText("There was an error, please try again")

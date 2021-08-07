@@ -23,10 +23,13 @@ while activated:
             lucy.speakError()
             print("Error")
 
-        if text.lower() == 'turn off':
-            activated = False
-        else:
-            lucy.parseQuestion(text)
+        try:
+            if text.lower() == 'turn off':
+                activated = False
+            else:
+                lucy.parseQuestion(text)
+        except:
+            lucy.speakError()
     else:
         userIn = input("Click enter to enable: ")
         print("Say something!")
