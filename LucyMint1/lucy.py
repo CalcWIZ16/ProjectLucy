@@ -11,6 +11,7 @@ from speak import *
 import spotify as spotify
 import timers as timers
 import timeanddate as timeanddate
+import stopwatch as stopwatch
 
 def tts(string):
     i = 0
@@ -35,3 +36,6 @@ def parseQuestion(string):
 
     if ('tell' in userIn or 'whats' in userIn) and ('time' in userIn or 'date' in userIn or 'day' in userIn):
         timeanddate.parseQuestion(userIn)
+
+    if 'stopwatch' in userIn:
+        stopwatch.parseQuestion(userIn)
