@@ -36,3 +36,4 @@ while activated:
             activated = False
         else:
             lucy.parseQuestion(text)
+            
