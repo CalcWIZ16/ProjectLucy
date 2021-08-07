@@ -95,7 +95,7 @@ def parseQuestion(string):
                     if hourCount == 1:
                         timeUnits.append(str(hourCount) + " hour")
                     else:
-                        timeUnits.append(tr(hourCount) + " hours")
+                        timeUnits.append(str(hourCount) + " hours")
                     timeRemainingInt = timeRemainingInt % 3600
                 if timeRemainingInt > 60:
                     minuteCount = timeRemainingInt // 60
@@ -103,11 +103,11 @@ def parseQuestion(string):
                         timeUnits.append(str(minuteCount) + " minute")
                     else:
                         timeUnits.append(str(minuteCount) + " minutes")
-                    secondCount = timeRemainingInt % 60
-                    if secondCount == 1:
-                        timeUnits.append(str(secondCount) + " second")
-                    else:
-                        timeUnits.append(str(secondCount) + " seconds")
+                secondCount = timeRemainingInt % 60
+                if secondCount == 1:
+                    timeUnits.append(str(secondCount) + " second")
+                else:
+                    timeUnits.append(str(secondCount) + " seconds")
                 # timeUnits = (value for value in timeUnits if value != "")
                 if "" in timeUnits:
                     timeUnits.remove("")

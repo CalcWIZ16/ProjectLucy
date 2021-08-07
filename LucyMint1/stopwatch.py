@@ -1,31 +1,34 @@
 import threading
-import re
+from time import time
 from config import *
 from speak import *
 
 stopwatchRunning = False
-
 timePassedSeconds = 0
 
 def iterateStopwatch():
-    if stopwatchRunning == True:
-        global timePassedSeconds
-        timePassedSeconds += 1
-        threading.Timer(1.0, iterateStopwatch).start()
+    global t, timePassedSeconds
+    timePassedSeconds += 1
+    print(timePassedSeconds)
+    t = threading.Timer(1.0, lambda: iterateStopwatch())
+    t.start()
 
 def parseQuestion(string):
+    global t, timePassedSeconds
     if 'start' in string:
-        stopwatchRunning = True
-        iterateStopwatch()
-    if 'stop' in string:
-        stopwatchRunning = False
-    if 'long' in string:
+        t = threading.Timer(1.0, lambda: iterateStopwatch())
+        t.start()
+    elif string.count("stop") > 1:
+        t.cancel()
+    elif 'long' in string:
         speakText(secondsToString())
-    if 'reset' in string:
+    elif 'reset' in string:
         timePassedSeconds = 0
-        stopwatchRunning = False
+        t.cancel()
 
 def secondsToString():
+    global stopwatchRunning, timePassedSeconds
+    print(timePassedSeconds)
     timeRemainingInt = timePassedSeconds
     timeUnits = []
     if timeRemainingInt > 3600:
@@ -41,12 +44,11 @@ def secondsToString():
             timeUnits.append(str(minuteCount) + " minute")
         else:
             timeUnits.append(str(minuteCount) + " minutes")
-        secondCount = timeRemainingInt % 60
-        if secondCount == 1:
-            timeUnits.append(str(secondCount) + " second")
-        else:
-            timeUnits.append(str(secondCount) + " seconds")
-    # timeUnits = (value for value in timeUnits if value != "")
+    secondCount = timeRemainingInt % 60
+    if secondCount == 1:
+        timeUnits.append(str(secondCount) + " second")
+    else:
+        timeUnits.append(str(secondCount) + " seconds")
     if "" in timeUnits:
         timeUnits.remove("")
     response = ""

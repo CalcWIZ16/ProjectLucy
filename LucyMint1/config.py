@@ -6,4 +6,4 @@ SP_URL = 'https://www.google.com/'
 SCOPE = "user-top-read user-modify-playback-state app-remote-control streaming"
 AUTH_URL = 'https://accounts.spotify.com/api/token'
 your_name = 'User'
-speech_mode = 'false'
+speech_mode = 'true'
