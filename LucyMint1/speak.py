@@ -1,6 +1,9 @@
 import os
 from playsound import playsound
 
+import speech_recognition as sr
+import lucy as lucy
+
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = '/Users/tts-for-messages-354f8a743220.json'
 
 from google.cloud import texttospeech
@@ -39,3 +42,16 @@ def speakText(string):
 
 def speakError():
     playsound('error.mp3')
+
+def getUserInput():
+    r = sr.Recognizer()
+    with sr.Microphone() as source:
+        print("Say something!")
+        audio = r.listen(source)
+    
+    try:
+        return r.recognize_google(audio)
+    except:
+        lucy.speakError()
+        print("Error")
+        return "Error"

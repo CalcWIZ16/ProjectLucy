@@ -78,10 +78,64 @@ def parseQuestion(string):
         elif 'hour' in unitOfTime:
             multiplier = 3600
         timerDuration = int(amountOfTime) * multiplier
+        timersToRemove = []
         for timer in timers:
             if timer.getTotalDuration() == timerDuration:
-                timers.remove(timer)
-        speakText("Removed a " + amountOfTime + " " + unitOfTime + " timers")
+                timersToRemove.append(timer)
+        if len(timersToRemove) > 1:
+            speakText("There are " + str(len(timersToRemove)) + " timers with that duration")
+            i = 0
+            for timer in timersToRemove:
+                timeRemaining = ""
+                timeRemainingInt = timer.getCurrentTime()
+
+                timeUnits = []
+                if timeRemainingInt > 3600:
+                    hourCount = timeRemainingInt // 3600
+                    if hourCount == 1:
+                        timeUnits.append(str(hourCount) + " hour")
+                    else:
+                        timeUnits.append(tr(hourCount) + " hours")
+                    timeRemainingInt = timeRemainingInt % 3600
+                if timeRemainingInt > 60:
+                    minuteCount = timeRemainingInt // 60
+                    if minuteCount == 1:
+                        timeUnits.append(str(minuteCount) + " minute")
+                    else:
+                        timeUnits.append(str(minuteCount) + " minutes")
+                    secondCount = timeRemainingInt % 60
+                    if secondCount == 1:
+                        timeUnits.append(str(secondCount) + " second")
+                    else:
+                        timeUnits.append(str(secondCount) + " seconds")
+                # timeUnits = (value for value in timeUnits if value != "")
+                if "" in timeUnits:
+                    timeUnits.remove("")
+                response = ""
+                if len(timeUnits) == 1:
+                    response = timeUnits[0]
+                elif len(timeUnits) == 2:
+                    response = timeUnits[0] + " and " + timeUnits[1]
+                elif len(timeUnits) == 3:
+                    response = timeUnits[0] + " " + timeUnits[1] + " and " + timeUnits[2]
+                if i == len(timersToRemove) - 1:
+                    speakText("and a timer with " + response + " remaining")
+                else:
+                    speakText("There is a timer with " + response + " remaining")
+                i += 1
+            speakText("What is the index of the timer you want to remove?")
+            waiting = True
+            while waiting:
+                timerToRemove = getUserInput()
+                try:
+                    timers.remove(timersToRemove[int(timerToRemove)])
+                    speakText("Removed the timer")
+                    waiting = False
+                except:
+                    speakText("There was an error, please try again")
+        else:
+            timers.remove(timersToRemove[0])
+            speakText("Removed a " + amountOfTime + " " + unitOfTime + " timer")
 
 def iterateTimers():
     timersToRemove = []
