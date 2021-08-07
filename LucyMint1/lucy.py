@@ -66,6 +66,6 @@ while activated:
                     sp.start_playback()
 
     except:
-        tts("Sorry, I didn't quite catch that")
-        print("<Lucy> Sorry, I didn't quite catch that")
+        tts("Sorry, I ran into a problem")
+        print("<Lucy> Sorry, I ran into a problem")
         pass
