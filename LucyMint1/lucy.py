@@ -9,6 +9,7 @@ from config import *
 from speak import *
 
 import spotify as spotify
+import timers as timers
 
 def tts(string):
     i = 0
@@ -27,3 +28,6 @@ def parseQuestion(string):
 
     if 'on spotify' in userIn:
         spotify.parseQuestion(userIn)
+
+    if 'timer' in userIn:
+        timers.parseQuestion(userIn)
