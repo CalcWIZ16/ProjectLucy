@@ -10,7 +10,7 @@ from speak import *
 
 import spotify as spotify
 import timers as timers
-# import timeanddate as timeanddate
+import timeanddate as timeanddate
 import stopwatch as stopwatch
 import music as music
 
@@ -35,8 +35,9 @@ def parseQuestion(string):
     if 'timer' in userIn:
         timers.parseQuestion(userIn)
 
-    # if ('tell' in userIn or 'whats' in userIn) and ('time' in userIn or 'date' in userIn or 'day' in userIn):
-        # timeanddate.parseQuestion(userIn)
+    if ('tell' in userIn or 'whats' in userIn) and ('time' in userIn or 'date' in userIn or 'day' in userIn):
+        timeanddate.parseQuestion(userIn)
+        
     if 'stopwatch' in userIn:
         stopwatch.parseQuestion(userIn)
 
