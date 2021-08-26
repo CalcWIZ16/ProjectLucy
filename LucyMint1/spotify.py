@@ -12,7 +12,6 @@ sp = None
 def getAuthentication():
     global sp
     sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=SP_CI, client_secret=SP_CS, redirect_uri=SP_URL, scope=SCOPE))
-    print("authy")
     if not os.path.isfile(".cache"):
         threading.Timer(1.0, createWebServer).start()
 
@@ -53,6 +52,15 @@ def parseQuestion(string):
             userArray = userIn.split(" ", 1)
             if len(userArray) > 1:
                 print(userArray[1])
+                if 'by' in userIn:
+                    userInEdited = userArray[1].replace('by', '')
+                    if userArray[1].startswith('by'):
+                        userInEdited = 'by'+userInEdited
+                        print('starts with by')
+                    if userArray[1].endswith('by'):
+                        userInEdited = userInEdited+'by'
+                        print('ends with by')
+                print(userInEdited)
                 song = userArray[1]
 
                 response = sp.search(q=song, type="track")

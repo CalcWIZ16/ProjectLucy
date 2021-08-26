@@ -1,7 +1,6 @@
 from config import *
 from speak import *
 
-<<<<<<< Updated upstream
 from datetime import datetime
 
 def parseQuestion(string):
@@ -38,22 +37,3 @@ def parseQuestion(string):
     if 'date' in string:
         print("Today is "+month+' '+dateNumber+'th '+year)
     
-=======
-import datetime
-
-def parseQuestion(string):
-    if 'time' in string:
-        time = datetime.time()
-        hour = time.strftime('%I')
-        minute = time.strftime('%M')
-        print("It is"+hour+':'+minute)
-
-
-    if 'date' in string:
-        date = datetime.datetime.now()
-        month = date.strftime('%B')
-        day = date.strftime('%d')
-        year = date.strftime('%Y')
-        print("Today is "+month+' '+day+'th '+year)
-    
->>>>>>> Stashed changes
