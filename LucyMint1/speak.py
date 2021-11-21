@@ -4,6 +4,8 @@ from playsound import playsound
 import speech_recognition as sr
 import lucy as lucy
 
+from config import *
+
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = '/Users/tts-for-messages-354f8a743220.json'
 
 from google.cloud import texttospeech
@@ -29,17 +31,20 @@ audio_config = texttospeech.AudioConfig(
 
 
 def speakText(string):
-    if not os.path.isfile("voice/" + string + ".mp3"):
-        synthesis_input = texttospeech.SynthesisInput(text=string)
-        response = client.synthesize_speech(
-            input=synthesis_input, voice=voice, audio_config=audio_config
-        )
-        # The response's audio_content is binary.
-        with open("voice/" + string + ".mp3", "wb") as out:
-            # Write the response to the output file.
-            out.write(response.audio_content)
-            print('Audio content written to file "output.mp3"')
-    playsound("voice/" + string + '.mp3')
+    if speech_mode == 'true':
+        if not os.path.isfile("voice/" + string + ".mp3"):
+            synthesis_input = texttospeech.SynthesisInput(text=string)
+            response = client.synthesize_speech(
+                input=synthesis_input, voice=voice, audio_config=audio_config
+            )
+            # The response's audio_content is binary.
+            with open("voice/" + string + ".mp3", "wb") as out:
+                # Write the response to the output file.
+                out.write(response.audio_content)
+                print('Audio content written to file "output.mp3"')
+        playsound("voice/" + string + '.mp3')
+    else:
+        print("<Lucy> "+string)
 
 def speakError():
     playsound('error.mp3')

@@ -3,32 +3,41 @@ import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 from config import *
 from speak import *
-import threading
-
-import os
+import requests
 
 sp = None
 
 def getAuthentication():
-    global sp
     sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=SP_CI, client_secret=SP_CS, redirect_uri=SP_URL, scope=SCOPE))
-    if not os.path.isfile(".cache"):
-        threading.Timer(1.0, createWebServer).start()
+    auth_response = requests.post(AUTH_URL, {
+    'grant_type': 'client_credentials',
+    'client_id': SP_CI,
+    'client_secret': SP_CS,
+    })
+    auth_response_data = auth_response.json()
+    access_token = auth_response_data['access_token']
+    headers = {
+    'Authorization': 'Bearer {token}'.format(token=access_token)
+    }
 
-def createWebServer():
-    # from http.server import HTTPServer, CGIHTTPRequestHandler
-    # os.chdir(".")
-    # server_object = HTTPServer(server_address=('', 1337), RequestHandlerClass=CGIHTTPRequestHandler)
-    # server_object.serve_forever()
-    from flask import Flask
-    app = Flask(__name__)
-    @app.route("/")
-    def index():
-        return "Hello World!"
-    app.run(host="127.0.0.1", port="1337", debug=True)
+
+
+# def createWebServer():
+#     print("web")
+#     from http.server import HTTPServer, CGIHTTPRequestHandler
+#     os.chdir(".")
+#     server_object = HTTPServer(server_address=('', 1337), RequestHandlerClass=CGIHTTPRequestHandler)
+#     server_object.serve_forever()
+    # from flask import Flask
+    # app = Flask(__name__)
+    # @app.route("/")
+    # def index():
+    #     return "Hello World!"
+    # app.run(host="127.0.0.1", port="1337", debug=True)
 
         
 def parseQuestion(string):
+    print('1')
     getAuthentication()
     userIn = string.removesuffix(' on spotify')
     try:

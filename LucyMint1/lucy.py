@@ -1,5 +1,4 @@
 # import requests
-import speech_recognition as sr
 # import pyttsx3
 import spotipy
 import pyjokes
@@ -10,21 +9,22 @@ from speak import *
 
 import spotify as spotify
 import timers as timers
-import timeanddate as timeanddate
+# import timeanddate as timeanddate
 import stopwatch as stopwatch
 import music as music
+
 
 def tts(string):
     i = 0
     speakText(string)
 
+
 def parseQuestion(string):
     userIn = string.lower()
-    print("<"+your_name+"> "+userIn)
+    print("<" + your_name + "> " + userIn)
 
-    #Gimmics
     if 'hello' in userIn:
-        tts("Hello "+your_name)
+        tts("Hello " + your_name)
 
     if 'tell' in userIn and 'joke' in userIn:
         tts(pyjokes.get_joke())
@@ -35,9 +35,10 @@ def parseQuestion(string):
     if 'timer' in userIn:
         timers.parseQuestion(userIn)
 
-    if ('tell' in userIn or 'whats' in userIn) and ('time' in userIn or 'date' in userIn or 'day' in userIn):
-        timeanddate.parseQuestion(userIn)
-        
+    # if ('tell' in userIn or "what's" in userIn or 'what' in userIn) and (
+    #         'time' in userIn or 'date' in userIn or 'day' in userIn):
+    #     timeanddate.parseQuestion(userIn)
+
     if 'stopwatch' in userIn:
         stopwatch.parseQuestion(userIn)
 

@@ -5,6 +5,7 @@
 import speech_recognition as sr
 import lucy as lucy
 from config import *
+from lucy import parseQuestion
 
 activated = True
 
@@ -24,12 +25,16 @@ while activated:
             print("Error")
 
         try:
+            print('4')
             if text.lower() == 'turn off':
                 activated = False
+                print('1')
             else:
                 lucy.parseQuestion(text)
+                print('2')
         except:
-            lucy.speakError()
+            print('3')
+            # lucy.speakError()
     else:
         userIn = input("Click enter to enable: ")
         print("Say something!")
