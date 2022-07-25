@@ -35,8 +35,8 @@ while activated:
         except:
             print('3')
             # lucy.speakError()
-    else:
-        userIn = input("Click enter to enable: ")
+    elif speech_mode=='false':
+        userIn = input("Click any key to enable")
         print("Say something!")
         text = input()
 
