@@ -36,12 +36,11 @@ while activated:
             print('3')
             # lucy.speakError()
     elif speech_mode=='false':
-        userIn = input("Click any key to enable")
         print("Say something!")
-        text = input()
+        userIn = input()
 
-        if text.lower() == 'turn off':
+        if userIn.lower() == 'turn off' or 'exit':
             activated = False
         else:
-            lucy.parseQuestion(text)
+            lucy.parseQuestion(userIn)
             

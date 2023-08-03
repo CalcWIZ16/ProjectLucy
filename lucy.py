@@ -12,11 +12,17 @@ import timers as timers
 # import timeanddate as timeanddate
 import stopwatch as stopwatch
 import music as music
+from config import *
 
 
 def tts(string):
-    i = 0
-    speakText(string)
+    print("1")
+    print(string)
+    # i = 0
+    # if speech_mode == 'true':
+    #     speakText(string)
+    # else:
+    #     print(string)
 
 
 def parseQuestion(string):
